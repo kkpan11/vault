@@ -24,10 +24,10 @@ scenario "autopilot" {
       - vault_build_date*
       - vault_product_version
       - vault_revision*
-    
+
     * If you don't already know what build date and revision you should be using, see
     https://eng-handbook.hashicorp.services/internal-tools/enos/troubleshooting/#execution-error-expected-vs-got-for-vault-versioneditionrevisionbuild-date.
-  
+
     Variables required for some scenario variants:
       - artifactory_username (if using `artifact_source:artifactory` in your filter)
       - artifactory_token (if using `artifact_source:artifactory` in your filter)
@@ -63,10 +63,10 @@ scenario "autopilot" {
     // versions after our initial publication of these editions for arm64.
     exclude {
       arch    = ["arm64"]
-      edition = ["ent.fips1402", "ent.hsm", "ent.hsm.fips1402"]
+      edition = ["ent.fips1403", "ent.hsm", "ent.hsm.fips1403"]
     }
 
-    // PKCS#11 can only be used on ent.hsm and ent.hsm.fips1402.
+    // PKCS#11 can only be used on ent.hsm and ent.hsm.fips1403.
     exclude {
       seal    = ["pkcs11"]
       edition = [for e in matrix.edition : e if !strcontains(e, "hsm")]
@@ -370,6 +370,7 @@ scenario "autopilot" {
       quality.vault_mount_auth,
       quality.vault_mount_kv,
       quality.vault_secrets_kv_write,
+      quality.vault_secrets_ldap_write_config,
     ]
 
     variables {
